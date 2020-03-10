@@ -22,6 +22,7 @@
     "bootstrap": "^4.4.1",
     "handlebars": "^4.7.3",
     "jquery": "^3.4.1",
+    "kinvey-angular-sdk": "^4.2.5",
     "rxjs": "^6.4.0",
     "sammy": "^0.7.6",
     "tslib": "^1.10.0",
