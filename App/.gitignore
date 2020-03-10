@@ -46,4 +46,4 @@ testem.log
 Thumbs.db
 
 # Kinvey Secrets
-!./src/secret.ts
+./src/secret.ts
