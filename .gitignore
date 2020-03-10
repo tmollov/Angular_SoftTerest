@@ -122,4 +122,6 @@ SOURCE/styles/dashboard.css
 SOURCE/styles/home.css
 SOURCE/styles/ideas.css
 SOURCE/styles/login.css
+
+# Kinvey Secrets
 App/src/secret.ts
