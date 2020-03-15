@@ -1,5 +1,13 @@
-<div id="notifications">
-    <div style="display: none;" id="successBox" class="alert alert-success" role="alert">DONE!</div>
-    <div style="display: none;" id="loadingBox" class="alert alert-info" role="alert">Loading...</div>
-    <div style="display: none;" id="errorBox" class="alert alert-danger" role="alert">NOPE!</div>
+<div id="notifications" class="mt-3">
+  <div *ngIf="this.successMessage" id="successBox" class="alert alert-success notifDiv" role="alert">
+    <span>{{this.successMessage}}</span>
+    <button class="resetButton" (click)="this.reset(0)">X</button>
   </div>
+  <div *ngIf="this.loadingMessage" id="loadingBox" class="alert alert-info notifDiv" role="alert">
+    <span>{{this.loadingMessage}}</span>
+  </div>
+  <div *ngIf="this.errorMessage" id="errorBox" class="alert alert-danger notifDiv" role="alert">
+    <span>{{this.errorMessage}}</span>
+    <button class="resetButton" (click)="this.reset(2)">X</button>
+  </div>
+</div>
