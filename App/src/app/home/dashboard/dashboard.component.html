@@ -1,0 +1,24 @@
+<ng-container *ngIf="!this.entites">
+  <app-notifications [loadingMessage]="this.notificationMessage"></app-notifications>
+</ng-container>
+
+<div id="dashboard-holder">
+  <ng-container *ngIf="this.entites">
+    <div *ngFor="let el of this.entites | async">
+      <div class="card overflow-hidden current-card details" style="width: 20rem; height: 18rem;">
+        <div class="card-body">
+          <p class="card-text">{{el.title}}</p>
+        </div>
+        <img class="card-image" src="{{el.imageURL}}" alt="Card image cap">
+        <a class="btn" href="idea/detail/{{el._id}}">Details</a>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="this.entites == null">
+    <div>
+      <h1>No ideas yet! Be the first one :)</h1>
+    </div>
+  </ng-container>
+
+</div>
