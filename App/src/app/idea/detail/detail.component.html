@@ -1,26 +1,31 @@
-<div class="container home some">
-    <img class="det-img" src="./assets/images/dinner.jpg" />
-    <div class="desc">
-        <h2 class="display-5">Dinner Recipe</h2>
-        <p class="infoType">Description:</p>
-        <p class="idea-description">There are few things as comforting as heaping bowl of pasta at the end of a long
-            day. With so many easy pasta recipes out there, there's something for every palate to love. That's why pasta
-            makes such a quick, easy dinner for your family—it's likely to satisfy everyone's cravings, due to its
-            versatility.</p>
-        <p class="infoType">Likes: 2
-        </p>
-        <p class="infoType">Comments:</p>
-        <ul>
-            <li class="comment">Jonh: I really like this idea :)</li>
-            <li class="comment">No comments yet :(</li>
-        </ul>
-    </div>
-    <div class="text-center">
-        <a class="btn del-btn" href="/">Delete</a>
-    </div>
-    <form class="text-center" method="" action="">
-        <textarea class="textarea-det" name="newComment" id=""></textarea>
-        <button type="submit" class="btn detb">Comment</button>
-        <a class="btn detb" href="">Like</a>
-    </form>
+<div *ngIf="!this.ideaDetails$">
+    <app-notifications [loadingMessage]="notificationMessage"></app-notifications>
 </div>
+
+<ng-container *ngIf="this.ideaDetails$ | async as idea">
+        <div class="container home some">
+            <img class="det-img" src="{{idea.imageURL}}" />
+            <div class="desc">
+                <h2 class="display-5">{{idea.title}}</h2>
+                <p class="infoType">Description:</p>
+                <p class="idea-description">{{idea.description}}</p>
+                <p class="infoType">Likes: {{idea.likes}}
+                </p>
+                <p class="infoType">Comments:</p>
+                <p *ngIf="!idea.comments" class="comment">No comments yet :(</p>
+                <ul *ngIf="idea.comments">
+                    <ng-container *ngFor="let comment of idea.comments">
+                        <li class="comment">{{comment.username}}: {{comment.content}}</li>
+                    </ng-container>
+                </ul>
+            </div>
+            <div class="text-center">
+                <a class="btn del-btn" href="#delete">Delete</a>
+            </div>
+            <form class="text-center mb-4" [formGroup]="commentLikeform">
+                <textarea class="textarea-det" name="newComment" formControlName="newComment" cols="40" rows="2"></textarea>
+                <button type="submit" class="btn detb">Comment</button>
+                <a class="btn detb" href="#liked">Like</a>
+            </form>
+        </div>
+</ng-container>
