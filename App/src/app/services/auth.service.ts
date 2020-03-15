@@ -9,8 +9,6 @@ import { UserService  } from 'kinvey-angular-sdk';
 })
 export class AuthService {
 
-  public User;
-
   constructor(private http: HttpClient,
     private userService: UserService) { }
 
