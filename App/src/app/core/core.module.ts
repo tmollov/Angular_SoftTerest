@@ -5,13 +5,16 @@ import { FooterComponent } from './footer/footer.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  declarations: [NavigationComponent, FooterComponent, NotificationsComponent, NotfoundComponent],
+  declarations: [NavigationComponent, FooterComponent, NotificationsComponent, NotfoundComponent, LoaderComponent],
   exports: [
     NavigationComponent,
     FooterComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    NotfoundComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
