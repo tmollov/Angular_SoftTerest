@@ -19,7 +19,8 @@ export class DataService {
       let idea: Idea = {
         title: title,
         description: description,
-        imageURL: imageUrl
+        imageURL: imageUrl,
+        likes: "1"
       }
       debugger
       const savedIdea = await this.collection.save(idea);
