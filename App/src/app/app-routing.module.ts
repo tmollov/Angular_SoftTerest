@@ -1,9 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { NotificationsComponent } from './core/notifications/notifications.component';
 import { HomeComponent } from './home/home.component';
 import { NotfoundComponent } from './core/notfound/notfound.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { CreateComponent } from './idea/create/create.component';
 import { DetailComponent } from './idea/detail/detail.component';
 
@@ -25,7 +23,7 @@ const routes: Routes = [
     component: CreateComponent
   },
   {
-    path: 'idea/detail',
+    path: 'idea/detail/:id',
     pathMatch: 'full',
     component: DetailComponent
   },
