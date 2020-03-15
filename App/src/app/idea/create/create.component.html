@@ -1,30 +1,76 @@
-<div class="container home wrapper  my-md-5 pl-md-5">
-    <div class=" d-md-flex flex-mb-equal ">
-      <div class="col-md-6">
-        <img class="responsive-ideas create" src="./assets/images/creativity_painted_face.jpg" alt="">
+<app-notifications [successMessage]="this.notificationMessage"></app-notifications>
+
+<div class="container home wrapper  my-md-3 pl-md-3">
+  <div class=" d-md-flex flex-mb-equal">
+    <form (ngSubmit)="onSubmit()" [formGroup]="createForm" class="form-idea col-md-9" action="#/create" method="post">
+      <div class="text-center col-md">
+        <h1 class="h3 mb-3 font-weight-normal" (click)="showErrors()">Share Your Idea</h1>
       </div>
-      <form class="form-idea col-md-5" action="#/create" method="post">
-        <div class="text-center mb-4">
-          <h1 class="h3 mb-3 font-weight-normal">Share Your Idea</h1>
-        </div>
-        <div class="form-label-group">
-          <label for="ideaTitle">Title</label>
-          <input type="text" id="title" name="title" class="form-control" placeholder="What is your idea?" required=""
-            autofocus="">
-        </div>
-        <div class="form-label-group">
-          <label for="ideaDescription">Description</label>
-          <textarea type="text" name="description" class="form-control" placeholder="Description..."
-            required=""></textarea>
-        </div>
-        <div class="form-label-group">
-          <label for="inputURL">Add Image</label>
-          <input type="text" id="imageURl" name="imageURL" class="form-control" placeholder="https://some.com/example.jpg" required="">
+      <div class="form-label-group formGroupItem">
+        <label for="ideaTitle">Title</label>
+        <input type="text" id="title" name="title" class="form-control" placeholder="What is your idea?" required
+          minlength="6" formControlName="title">
 
+        <div *ngIf="this.createForm.controls.title.errors != null">
+          <div *ngIf="this.createForm.controls.title.errors?.required && this.createForm.controls.title.touched">
+            <p class="text-danger">Please give your idea a title!</p>
+          </div>
+          <div
+            *ngIf="this.createForm.controls.title.errors?.minlength?.actuallength !== 6 && this.createForm.controls.title.touched">
+            <p class="text-danger">Your title must be at least 6 charachter long!</p>
+          </div>
         </div>
-        <button class="btn btn-lg btn-dark btn-block" type="submit">Create</button>
+      </div>
+      <div class="form-label-group formGroupItem">
+        <label for="ideaDescription">Description</label>
+        <textarea type="text" name="description" class="form-control" placeholder="Description..." required
+          minlength="10" formControlName="description"></textarea>
+        <div *ngIf="this.createForm.controls.description.errors != null">
+          <div
+            *ngIf="this.createForm.controls.description.errors?.required && this.createForm.controls.description.touched">
+            <p class="text-danger">Please give your idea a description!</p>
+          </div>
+          <div
+            *ngIf="this.createForm.controls.description.errors?.minlength?.actuallength !== 10 && this.createForm.controls.description.touched">
+            <p class="text-danger">Your description must be at least 10 charachter long!</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-label-group formGroupItem">
+        <label for="inputURL">Add Image</label>
+        <input type="text" id="imageURl" name="imageURL" class="form-control" placeholder="https://some.com/example.jpg"
+          required pattern="^https*:\/\/.*" formControlName="imageURL">
 
-        <p class="mt-5 mb-3 text-muted text-center">© SoftTerest - 2019.</p>
-      </form>
-    </div>
+        <div *ngIf="this.createForm.controls.imageURL.errors != null">
+          <div *ngIf="this.createForm.controls.imageURL.errors?.required && 
+                      this.createForm.controls.imageURL.touched">
+            <p class="text-danger">Image URL is required!</p>
+          </div>
+          <div *ngIf="!this.createForm.controls.imageURL.errors?.pattern?.pattern && this.createForm.controls.imageURL.touched">
+            <p class="text-danger">Invalid URL!</p>
+          </div>
+        </div>
+
+        <div>
+          <Label class="row mt-3">Preview of image:</Label>
+          <div *ngIf="this.createForm.controls.imageURL.value" class="row">
+            <img class="responsive-ideas create" src="{{this.createForm.controls.imageURL.value}}" alt="">
+          </div>
+        </div>
+
+        <div *ngIf="!loading" class="buttonDiv">
+          <button [disabled]="this.createForm.invalid" class="btn btn-lg btn-dark btn-block"
+            type="submit">Create</button>
+        </div>
+        <div *ngIf="loading" class="buttonDiv">
+          <button class="btn btn-lg btn-dark btn-block" type="submit">
+            <app-loader></app-loader>
+          </button>
+        </div>
+
+
+        <p class="mt-5 mb-5 text-muted text-center">© SoftTerest - 2020.</p>
+      </div>
+    </form>
   </div>
+</div>

@@ -1,8 +1,8 @@
-.form-control{
-  
+.form-label-group{
+  margin-bottom:0.5em;
 }
 .form-label-group label{
-  margin:1em;
+  margin:0.2em;
 }
 .idea-description{
   width:350px;
@@ -82,5 +82,11 @@ textarea.form-control {
 }
 .detb{
   margin: 10px;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }
 
