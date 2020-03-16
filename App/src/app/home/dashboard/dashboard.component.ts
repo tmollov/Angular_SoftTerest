@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { Observable } from 'rxjs';
 import { Idea } from 'src/app/models/Idea';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,15 +12,16 @@ import { map } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
 
   public entites: Observable<Idea>;
+  isEntitiesLoaded: boolean = false;
   notificationMessage = "Dashboard is loading..."
   constructor(public dataService: DataService) {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.entites = this.dataService.find$();
-    }, 1000);
-    
+    this.entites = this.dataService.getIdeas$()
+    .pipe(finalize(()=>{
+      this.isEntitiesLoaded = true;
+    }));
   }
 
   showData() {
