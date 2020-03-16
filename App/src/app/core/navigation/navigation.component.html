@@ -18,6 +18,9 @@
           <li *ngIf="this.IsUserLogged" class="nav-item active">
             <a class="nav-link" routerLink="idea/create">Create</a>
           </li>
+          <li *ngIf="this.IsUserLogged" class="nav-item active">
+            <a class="nav-link" href="/profile">Profile</a>
+          </li>
           <li *ngIf="this.IsUserLogged" class="nav-item">
             <a class="nav-link" href="/#logout" (click)="logout()">Logout</a>
           </li>
