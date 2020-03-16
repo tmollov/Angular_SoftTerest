@@ -3,15 +3,19 @@ import { DataStoreService, Query, DataStoreType } from 'kinvey-angular-sdk';
 import { Idea } from '../models/Idea';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
+import { Like } from '../models/Like';
+import { Comment } from '../models/Comment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  collection: any;
+  IdeaCollection: any;
+  LikesCollection: any;
   collLen = 0;
   constructor(private dataStoreService: DataStoreService) {
-    this.collection = this.dataStoreService.collection('ideas', DataStoreType.Network);
+    this.IdeaCollection = this.dataStoreService.collection('ideas', DataStoreType.Network);
+    this.LikesCollection = this.dataStoreService.collection('likes',DataStoreType.Network);
   }
 
   async addIdea(title: string, description: string, imageUrl: string) {
@@ -20,29 +24,72 @@ export class DataService {
         title: title,
         description: description,
         imageURL: imageUrl,
-        likes: "1"
+        likes: "0",
+        comments: []
       }
       debugger
-      const savedIdea = await this.collection.save(idea);
+      const savedIdea = await this.IdeaCollection.save(idea);
       console.log(savedIdea);
     } catch (error) {
       console.log(error);
     }
   }
 
-  find$(): Observable<Idea> {
-    return this.collection.find()
+  getIdeas$(): Observable<Idea> {
+    return this.IdeaCollection.find()
       .pipe(map((data: []) => {
         return data;
       }));
   }
 
-  findById$(id): Observable<Idea> {
-    return this.collection.findById(id)
+  getIdeaById$(id:string): Observable<Idea> {
+    return this.IdeaCollection.findById(id)
       .pipe(map((data:Idea) => {
         console.log(data);
-        
         return data;
       }));
+  }
+
+  async removeIdeaById(id: string) {
+    try {
+      const result = await this.IdeaCollection.removeById(id);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  // In description: "Users can Like ideas multiple times.". Don't Judge Me.
+  // TODO: users CANT like ideas multiple times.
+  async likeIdea(idea:Idea, userId: string){
+    try {
+      debugger
+      let like: Like = {
+        UserId: userId,
+        IdeaId: idea._id
+      }
+      
+      const savedIdea = await this.IdeaCollection.save(idea);
+      const savedLike = await this.LikesCollection.save(like);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async commentIdea(Idea:Idea, username: string,content: string){
+    try {
+      let comment: Comment = {
+        Username: username,
+        Content: content
+      }
+      Idea.comments.push(comment);
+      
+      const savedIdea = await this.IdeaCollection.save(Idea);
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
