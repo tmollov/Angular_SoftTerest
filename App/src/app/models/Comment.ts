@@ -1,4 +1,4 @@
 export class Comment {
-    username: string;
-    content: string;
+    Username: string;
+    Content: string;
 }
