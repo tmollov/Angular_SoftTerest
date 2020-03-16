@@ -4,6 +4,7 @@ import { CreateComponent } from './create/create.component';
 import { DetailComponent } from './detail/detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -12,7 +13,8 @@ import { CoreModule } from '../core/core.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    AppRoutingModule
   ]
 })
 export class IdeaModule { }
