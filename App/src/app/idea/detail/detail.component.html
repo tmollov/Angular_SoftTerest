@@ -1,4 +1,4 @@
-<div *ngIf="!this.ideaDetails$">
+<div *ngIf="!isIdeaLoaded">
     <app-notifications [loadingMessage]="notificationMessage"></app-notifications>
 </div>
 
@@ -12,23 +12,23 @@
             <p class="infoType">Likes: {{idea.likes}}
             </p>
             <p class="infoType">Comments:</p>
-            <p *ngIf="!idea.comments" class="comment">No comments yet :(</p>
+            <p *ngIf="idea.comments.length == 0" class="comment">No comments yet :(</p>
             <ul *ngIf="idea.comments">
                 <ng-container *ngFor="let comment of idea.comments">
-                    <li class="comment">{{comment.username}}: {{comment.content}}</li>
+                    <li class="comment blink">{{comment.Username}}: {{comment.Content}}</li>
                 </ng-container>
             </ul>
         </div>
 
         <ng-container *ngIf="IfThereIsUser">
-            <div *ngIf="IsUserPublisher(idea?._acl?.creator)" class="text-center">
-                <a class="btn del-btn" href="#delete">Delete</a>
+            <div *ngIf="IsUserPublisher(idea?._acl?.creator)" class="text-center m-0">
+                <a class="btn del-btn" [routerLink]="" (click)="deleteIdea(idea._id)">Delete</a>
             </div>
-            <form *ngIf="!IsUserPublisher(idea?._acl?.creator)" class="text-center mb-4" [formGroup]="commentLikeform">
+            <form *ngIf="!IsUserPublisher(idea?._acl?.creator)" class="text-center mb-4" [formGroup]="commentform">
                 <textarea class="textarea-det" name="newComment" formControlName="newComment" cols="40"
                     rows="2"></textarea>
-                <button type="submit" class="btn detb">Comment</button>
-                <a class="btn detb" href="#liked">Like</a>
+                <button type="submit" class="btn detb" (click)="this.commentIdea(idea)">Comment</button>
+                <a class="btn detb" [routerLink]="" (click)="likeIdea(idea)">Like</a>
             </form>
         </ng-container>
 

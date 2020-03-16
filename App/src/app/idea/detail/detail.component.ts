@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { Idea } from 'src/app/models/Idea';
 import { DataService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,32 +14,51 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DetailComponent implements OnInit {
 
-  commentLikeform : FormGroup;
+  commentform : FormGroup;
   ideaDetails$: Observable<Idea>;
+  isIdeaLoaded: boolean = false;
   notificationMessage = "Loading idea...";
+  ideaLikes = 0;
   constructor(private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService,
     private authService: AuthService,
     private fb: FormBuilder) {
-      this.commentLikeform = this.fb.group({
+      this.commentform = this.fb.group({
         newComment: ['']
       });
    }
 
-   // TODO: fix settimeout
-  ngOnInit() {
-    setTimeout(() => {
-      this.ideaDetails$ = this.dataService.findById$(this.route.snapshot.params.id);
-    }, 500);
-  }
+   ngOnInit(){
+    this.ideaDetails$ = this.dataService.getIdeaById$(this.route.snapshot.params.id)
+    .pipe(finalize(()=>{
+      this.isIdeaLoaded = true;
+    }));
+   }
 
   IsUserPublisher(id:string): boolean {
-    let res = this.authService.activeUser._id == id
+    let res = this.authService.activeUser._id == id    
     return res
   }
 
   get IfThereIsUser(){
+    console.log(this.authService.activeUser);
+    
     return this.authService.activeUser;
+  }
+
+  deleteIdea(ideaID: string){
+    this.dataService.removeIdeaById(ideaID)
+    .then(()=>{
+      this.router.navigate(["/"]);
+    });
+  }
+
+  likeIdea(idea:Idea) {
+    let res = this.dataService.likeIdea(idea,this.authService.activeUser._id)
+  }
+  commentIdea(idea:Idea) {
+    let res = this.dataService.commentIdea(idea,this.authService.activeUser.username,this.commentform.controls.newComment.value)
+    this.commentform.reset();
   }
 }
