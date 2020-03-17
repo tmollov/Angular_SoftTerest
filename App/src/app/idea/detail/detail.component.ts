@@ -41,9 +41,7 @@ export class DetailComponent implements OnInit {
     return res
   }
 
-  get IfThereIsUser(){
-    console.log(this.authService.activeUser);
-    
+  get IfThereIsUser(){    
     return this.authService.activeUser;
   }
 
