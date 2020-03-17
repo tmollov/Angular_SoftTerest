@@ -45,7 +45,6 @@ export class DataService {
   getIdeaById$(id:string): Observable<Idea> {
     return this.IdeaCollection.findById(id)
       .pipe(map((data:Idea) => {
-        console.log(data);
         return data;
       }));
   }
@@ -64,11 +63,11 @@ export class DataService {
   // TODO: users CANT like ideas multiple times.
   async likeIdea(idea:Idea, userId: string){
     try {
-      debugger
       let like: Like = {
         UserId: userId,
         IdeaId: idea._id
       }
+      idea.likes += 1; 
       
       const savedIdea = await this.IdeaCollection.save(idea);
       const savedLike = await this.LikesCollection.save(like);
