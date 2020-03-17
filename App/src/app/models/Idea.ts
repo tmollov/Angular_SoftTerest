@@ -4,6 +4,7 @@ export class Idea {
     likes: string;
     description: string;
     imageURL: string;
-    comments: any[]
+    comments: any[];
+    _acl?:{creator:string};
 }
  
