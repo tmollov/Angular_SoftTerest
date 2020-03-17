@@ -13,10 +13,10 @@
             </p>
 
             <ng-container *ngIf="IfThereIsUser">
-                <div *ngIf="IsUserPublisher(idea?._acl?.creator)" class="text-center m-0">
+                <div *ngIf="IsUserPublisher(idea._acl?.creator)" class="text-center m-0">
                     <a class="btn del-btn" [routerLink]="" (click)="deleteIdea(idea._id)">Delete</a>
                 </div>
-                <form *ngIf="!IsUserPublisher(idea?._acl?.creator)" class="text-center" [formGroup]="commentform">
+                <form *ngIf="!IsUserPublisher(idea._acl?.creator)" class="text-center" [formGroup]="commentform">
                     <textarea class="textarea-det" name="newComment" formControlName="newComment" rows="2"
                         placeholder="Comment here..."></textarea>
                     <div>
