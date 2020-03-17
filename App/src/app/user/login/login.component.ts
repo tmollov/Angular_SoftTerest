@@ -49,8 +49,6 @@ export class LoginComponent implements OnInit {
         this.f.password.value)
       .then((data) => {
         this.loading = false;
-        console.log(JSON.stringify(data));
-        
         if (data.name == "InvalidCredentialsError") {
           this.loginForm.reset();
           this.notificationMessage = "Invalid Credentials!";
@@ -59,7 +57,7 @@ export class LoginComponent implements OnInit {
           }, 5000);
           return;
         }
-        this.router.navigate(['/']);
+        this.router.navigate([this.returnUrl]);
       });
   }
 
