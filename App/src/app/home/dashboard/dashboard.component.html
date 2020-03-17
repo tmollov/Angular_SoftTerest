@@ -3,15 +3,15 @@
 </ng-container>
 
 <div id="dashboard-holder">
-  <div *ngFor="let el of this.entites | async">
-    <div class="card overflow-hidden current-card details" style="width: 20rem; height: 18rem;">
+  <ng-container *ngFor="let el of this.entites | async">
+    <div class="card overflow-hidden current-card details">
       <div class="card-body">
         <p class="card-text">{{el.title}}</p>
       </div>
       <img class="card-image" src="{{el.imageURL}}" alt="Card image cap">
       <a class="btn" href="idea/detail/{{el._id}}">Details</a>
     </div>
-  </div>
+  </ng-container>
 
   <ng-container *ngIf="!isEntitiesLoaded">
     <div>

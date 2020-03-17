@@ -10,8 +10,8 @@
 .details {
   display: block;
   color: rgb(0, 0, 0);
-  width: 25%;
-  margin: 1.5rem auto 48px auto;
+  height:40vh;
+  margin: 1.5rem auto 1.5rem auto;
   text-align: center;
   border-radius: 15px;
   font-size: 18px;
@@ -32,9 +32,9 @@
 
 .current-card {
   background-color: rgba(255, 255, 255, 0.849);
-  flex: 0 1 30%;
+  flex: 0 1 33%;
   margin: 2%;
-  max-width: 250px;
+  max-width: 300px;
   min-width: 200px;
   border: solid;
   border-color: rgb(153, 221, 75);
