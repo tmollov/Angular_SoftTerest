@@ -20,7 +20,7 @@ const routes: Routes = [
     pathMatch: 'full',
     component: ProfileComponent,
     canActivate: [AuthGuard]
-  },
+  }
 ]
 
 export const UserRoutingModule = RouterModule.forChild(routes);
