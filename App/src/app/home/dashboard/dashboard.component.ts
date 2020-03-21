@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from '../../core/services/data.service';
 import { Observable } from 'rxjs';
-import { Idea } from 'src/app/models/Idea';
+import { Idea } from 'src/app/shared/models/Idea';
 import { map, finalize } from 'rxjs/operators';
 
 @Component({
