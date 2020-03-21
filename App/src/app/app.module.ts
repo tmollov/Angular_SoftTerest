@@ -8,12 +8,12 @@ import { UserModule } from './user/user.module';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { IdeaModule } from './idea/idea.module';
-import { AuthService } from './services/auth.service';
 import { KinveyModule } from 'kinvey-angular-sdk';
 import { Keys } from 'src/secret';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
-import { DataService } from './services/data.service';
+import { AuthService } from './core/services/auth.service';
+import { DataService } from './core/services/data.service';
 
 @NgModule({
   declarations: [
