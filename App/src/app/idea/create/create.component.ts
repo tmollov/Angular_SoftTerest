@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from '../../core/services/data.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Idea } from '../../shared/models/Idea';
 
 @Component({
   selector: 'app-create',
@@ -15,7 +16,7 @@ export class CreateComponent implements OnInit {
 
   createForm: FormGroup;
   notificationMessage = "";
-  imageUrlPattern = 'https*:\/\/.*';
+  imageUrlPattern = /^[hH][tT][tT][pP][sS]*:\/\/.*/;
 
   loading = false;
   constructor(private dataService: DataService,
@@ -53,11 +54,15 @@ export class CreateComponent implements OnInit {
         this.f.description.value,
         this.f.imageURL.value)
       .then((data) => {
+        debugger
         console.log(data);
         this.createForm.reset();
         this.loading = false;
-
-        this.notificationMessage = "Your idea was successfully added!"
+        this.router.navigate([`idea/detail/${data._id}`]);
+        
+      }).catch((err)=>{
+        console.log(err);
+        this.notificationMessage = "Something went from when adding your idea!"
         setTimeout(() => {
           this.notificationMessage = null;
         }, 3000);

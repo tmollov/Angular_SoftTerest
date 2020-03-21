@@ -39,7 +39,7 @@
       <div class="form-label-group formGroupItem">
         <label for="inputURL">Add Image</label>
         <input type="text" id="imageURl" name="imageURL" class="form-control" placeholder="https://some.com/example.jpg"
-          required pattern="^https*:\/\/.*" formControlName="imageURL">
+          required formControlName="imageURL">
 
         <div *ngIf="this.createForm.controls.imageURL.errors != null">
           <div *ngIf="this.createForm.controls.imageURL.errors?.required && 
