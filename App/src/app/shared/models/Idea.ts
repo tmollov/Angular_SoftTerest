@@ -1,7 +1,7 @@
 export class Idea {
     _id?: string
     title: string;
-    likes: string;
+    likes: number;
     description: string;
     imageURL: string;
     comments: any[];
