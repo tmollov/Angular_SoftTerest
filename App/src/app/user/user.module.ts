@@ -6,7 +6,6 @@ import { RegisterComponent } from './register/register.component';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
-import { LoaderComponent } from '../core/loader/loader.component';
 
 
 
