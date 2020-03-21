@@ -16,7 +16,6 @@ export class CreateComponent implements OnInit {
 
   createForm: FormGroup;
   notificationMessage = "";
-  imageUrlPattern = /^[hH][tT][tT][pP][sS]*:\/\/.*/;
 
   loading = false;
   constructor(private dataService: DataService,
@@ -25,7 +24,7 @@ export class CreateComponent implements OnInit {
     this.createForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(6)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      imageURL: ['', [Validators.required, Validators.pattern(this.imageUrlPattern)]]
+      imageURL: ['', Validators.required,]
     });
   }
 
@@ -38,14 +37,6 @@ export class CreateComponent implements OnInit {
 
   }
 
-  get https(): boolean {
-    return this.createForm.controls.imageURL.errors.pattern.actualValue.startsWith('https://');
-  }
-
-  get http(): boolean {
-    return this.createForm.controls.imageURL.errors.pattern.actualValue.startsWith('http://');
-  }
-
   onSubmit() {
     this.loading = true;
 
@@ -54,14 +45,11 @@ export class CreateComponent implements OnInit {
         this.f.description.value,
         this.f.imageURL.value)
       .then((data) => {
-        debugger
-        console.log(data);
         this.createForm.reset();
         this.loading = false;
         this.router.navigate([`idea/detail/${data._id}`]);
         
       }).catch((err)=>{
-        console.log(err);
         this.notificationMessage = "Something went from when adding your idea!"
         setTimeout(() => {
           this.notificationMessage = null;

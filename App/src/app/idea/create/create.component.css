@@ -51,6 +51,12 @@ textarea.form-control {
     color: white;
     display: inline-block;
 }
+
+button {
+  color: black;
+  background-color: rgb(255, 209, 92);
+}
+
 .btn-holder{
   width: 60%;
   margin-left: inherit;

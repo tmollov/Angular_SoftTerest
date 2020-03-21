@@ -41,14 +41,9 @@
         <input type="text" id="imageURl" name="imageURL" class="form-control" placeholder="https://some.com/example.jpg"
           required formControlName="imageURL">
 
-        <div *ngIf="this.createForm.controls.imageURL.errors != null">
-          <div *ngIf="this.createForm.controls.imageURL.errors?.required && 
+        <div *ngIf="this.createForm.controls.imageURL.errors?.required && 
                       this.createForm.controls.imageURL.touched">
-            <p class="text-danger">Image URL is required!</p>
-          </div>
-          <div *ngIf="!this.createForm.controls.imageURL.errors?.pattern?.pattern && this.createForm.controls.imageURL.touched">
-            <p class="text-danger">Invalid URL!</p>
-          </div>
+          <p class="text-danger">Image URL is required!</p>
         </div>
 
         <div>
@@ -59,11 +54,11 @@
         </div>
 
         <div *ngIf="!loading" class="buttonDiv">
-          <button [disabled]="this.createForm.invalid" class="btn btn-lg btn-dark btn-block"
+          <button [disabled]="this.createForm.invalid" class="btn btn-lg btn-block"
             type="submit">Create</button>
         </div>
         <div *ngIf="loading" class="buttonDiv">
-          <button class="btn btn-lg btn-dark btn-block" type="submit">
+          <button class="btn btn-lg btn-block" type="submit">
             <app-loader></app-loader>
           </button>
         </div>
