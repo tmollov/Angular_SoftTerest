@@ -65,6 +65,7 @@ export class ProfileComponent implements OnInit {
   }
 
   get profilePic() {
-    return this.authService.activeUser.data.pictureUrl;
+    const res = this.authService.activeUser.data as any;
+    return res.pictureUrl;
   }
 }
