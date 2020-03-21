@@ -12,4 +12,6 @@
 .btn {
   border: none;
   margin-top: 1em;
+  color: black;
+  background-color: rgb(255, 209, 92);
 }

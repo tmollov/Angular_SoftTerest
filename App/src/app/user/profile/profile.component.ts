@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
   ideasNames: Observable<Idea[]>;
   IsEditing = false;
   profilePicForm: FormGroup;
-  imageUrlPattern = /^[hH][tT][tT][pP][sS]*:\/\/.*/;
   notification;
   loading = false;
   constructor(private authService: AuthService,
@@ -28,7 +27,7 @@ export class ProfileComponent implements OnInit {
     private dataService: DataService,
     private rb: FormBuilder) {
       this.profilePicForm = this.rb.group({
-        picture:[this.profilePic,[Validators.required,Validators.pattern(this.imageUrlPattern,)]]
+        picture:[this.profilePic,Validators.required]
       });
   }
 
@@ -68,6 +67,4 @@ export class ProfileComponent implements OnInit {
   get profilePic() {
     return this.authService.activeUser.data.pictureUrl;
   }
-
-
 }

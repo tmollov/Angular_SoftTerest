@@ -11,16 +11,18 @@
       </div>
       <div class="form-label-group formGroupItem">
         <label for="inputUsername">Username</label>
-        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required="" formControlName="username" pattern="^[A-Za-z]{6,}$">
-        <div *ngIf="this.loginForm.controls.username.errors != null">
-          <div *ngIf="this.loginForm.controls.username.errors?.required && 
-                      this.loginForm.controls.username.touched">
+        <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required=""
+          formControlName="username" pattern="^[A-Za-z]{6,}$">
+        <div *ngIf="f.username.errors != null">
+          <div *ngIf="f.username.errors?.required && f.username.touched">
             <p class="text-danger">Username is required!</p>
           </div>
-          <div *ngIf="!this.loginForm.controls.username.errors?.minlength?.actuallength && this.loginForm.controls.username.touched">
+          <div
+            *ngIf="!f.username.errors?.minlength?.actuallength && f.username.touched">
             <p class="text-danger">Username must be minimum 6 characters long!</p>
           </div>
-          <div *ngIf="!this.loginForm.controls.username.errors?.pattern?.pattern && this.loginForm.controls.username.touched">
+          <div
+            *ngIf="!f.username.errors?.pattern?.pattern && f.username.touched">
             <p class="text-danger">Only alphabetical characters!</p>
           </div>
         </div>
@@ -29,13 +31,25 @@
         <label for="inputPassword">Password</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
           required="" formControlName="password">
+          <div *ngIf="f.password.errors != null">
+            <div *ngIf="f.password.errors?.required && f.password.touched">
+              <p class="text-danger">Password is required!</p>
+            </div>
+            <div
+              *ngIf="!f.password.errors?.minlength?.actuallength && f.password.touched">
+              <p class="text-danger">Password must be minimum 6 characters long!</p>
+            </div>
+          </div>
       </div>
       <div class="text-center mb-4 text-center">
         <div>
-          <button [disabled]="!this.loginForm.valid" *ngIf="!loading" class="btn btn-lg btn-dark btn-block" type="submit">Sign In</button>
-          <button *ngIf="loading" class="btn btn-lg btn-dark btn-block" type="submit"><app-loader></app-loader></button>
+          <button [disabled]="!this.loginForm.valid" *ngIf="!loading" class="btn btn-lg btn-block" type="submit">Sign
+            In</button>
+          <button *ngIf="loading" class="btn btn-lg btn-dark btn-block" type="submit">
+            <app-loader></app-loader>
+          </button>
         </div>
-        
+
         <p class="alreadyUser"> Don't have account? Then just
           <a routerLink="/register">Sign-Up</a>!
         </p>

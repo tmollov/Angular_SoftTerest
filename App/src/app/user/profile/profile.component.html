@@ -31,14 +31,9 @@
             <label for="picture">URL:</label>
             <input type="text" id="picture" name="picture" class="form-control" placeholder="Image URL..." required
                 formControlName="picture">
-            <div *ngIf="form.picture.errors != null">
-                <div *ngIf="!form.picture.errors?.pattern?.pattern && form.picture.touched">
-                    <p class="text-danger">Invalid URL!</p>
-                </div>
-                <div *ngIf="form.picture.errors?.required && 
+            <div *ngIf="form.picture.errors?.required && 
             form.picture.touched">
-                    <p class="text-danger">Image URL is required!</p>
-                </div>
+                <p class="text-danger">Image URL is required!</p>
             </div>
         </div>
         <div id="btnDiv">
