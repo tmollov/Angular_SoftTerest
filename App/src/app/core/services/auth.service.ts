@@ -51,6 +51,15 @@ export class AuthService {
     try {
       await this.userService.logout();
     } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  async updateProfilePicture(imageUrl: string) {
+    try {
+      await this.userService.update({pictureUrl:imageUrl});
+    } catch (error) {
       debugger
       return error;
     }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DataStoreService, Query, DataStoreType } from 'kinvey-angular-sdk';
-import { Idea } from '../models/Idea';
+import { Idea } from '../../shared/models/Idea';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { Like } from '../models/Like';
-import { Comment } from '../models/Comment';
+import { Like } from '../../shared/models/Like';
+import { Comment } from '../../shared/models/Comment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,18 +18,27 @@ export class DataService {
     this.LikesCollection = this.dataStoreService.collection('likes',DataStoreType.Network);
   }
 
+  getUserIdeas$(creatorId:string) : Observable<any>{
+    const query = new Query();
+    query.equalTo('_acl.creator', creatorId);
+    return this.IdeaCollection.find(query)
+    .pipe(map((data: []) => {
+      return data;
+    }));
+  }
+
   async addIdea(title: string, description: string, imageUrl: string) {
     try {
       let idea: Idea = {
         title: title,
         description: description,
         imageURL: imageUrl,
-        likes: "0",
+        likes: 0,
         comments: []
       }
       debugger
       const savedIdea = await this.IdeaCollection.save(idea);
-      console.log(savedIdea);
+      return savedIdea
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +66,6 @@ export class DataService {
       console.log(error);
     }
   }
-
 
   // In description: "Users can Like ideas multiple times.". Don't Judge Me.
   // TODO: users CANT like ideas multiple times.
