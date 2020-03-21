@@ -81,8 +81,13 @@
   background-color: rgba(26, 49, 83, 0.924);
 }
 
-.del-btn{
- width: 20%;
+.btn {
+  width: 20%;
+  margin: 0em 2em;
+}
+
+.edit-btn {
+  background-color: rgb(165, 140, 0);
 }
 
 .desc {
@@ -119,4 +124,14 @@
 
 form > textarea {
   width: 50%;
+}
+
+.title {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
