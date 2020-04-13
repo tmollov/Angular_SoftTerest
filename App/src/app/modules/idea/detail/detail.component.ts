@@ -79,7 +79,7 @@ export class DetailComponent implements OnInit {
   }
 
   likeIdea(idea: Idea) {
-    this.dataService.likeIdea(this.route.snapshot.params.id, idea);
+    this.dataService.likeIdea(this.route.snapshot.params.id,idea);
   }
   commentIdea(idea: Idea) {
     this.dataService.commentIdea(this.route.snapshot.params.id, this.commentform.controls.newComment.value)
