@@ -57,7 +57,6 @@ export class ProfileComponent implements OnInit {
     this.IsEditing = !this.IsEditing;
   }
 
-  // TODO: UPLOAD PICTURE
   onSubmit() {
     this.loading = true;
     this.authService.SetUserPhoto(this.f.picture.value)
@@ -71,7 +70,6 @@ export class ProfileComponent implements OnInit {
     return this.profilePicForm.controls;
   }
 
-  // TODO:
   get username() {
     return this.authService.GetUserUsernameByEmail;
   }
