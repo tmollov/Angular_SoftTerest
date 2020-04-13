@@ -45,10 +45,9 @@ export class DataService {
       });
   }
 
-  // TODO: REF
   getUserIdeas(creatorId: string) {
-    return this.IdeaCollection.where("creatorId","==",creatorId)
-    .get();
+    return this.IdeaCollection.where("creatorId", "==", creatorId)
+      .get();
   }
 
   addIdea(title: string, description: string, imageUrl: string) {
@@ -81,7 +80,6 @@ export class DataService {
     return this.IdeaCollection.doc(id).get();
   }
 
-  //TODO: REF
   removeIdeaById(id: string) {
     this.toastr.warning("Deleting idea...");
     this.IdeaCollection.doc(id).delete()
@@ -91,20 +89,37 @@ export class DataService {
       });
   }
 
+  IsUserLikedIdeaById(ideaId: string) {
+    return this.LikesCollection.where("IdeaId", '==', ideaId)
+      .get();
+  }
   // In description: "Users can Like ideas multiple times.". Don't Judge Me.
   // TODO: users CANT like ideas multiple times.
   likeIdea(ideaId: string, idea: Idea) {
     let like: Like = {
       UserId: this.authService.GetUserId,
-      IdeaId: uuidv4()
+      IdeaId: ideaId
     }
-    idea.likes += 1;
 
-    this.editIdea(idea, ideaId)
-      .then(() => {
-        this.toastr.success("You liked this idea");
-        this.addLike(like);
-      })
+    this.IsUserLikedIdeaById(ideaId)
+    .then((data) => {
+      debugger;
+      let arr = data.docs.filter(x => x.data().UserId == this.authService.GetUserId);
+      if (arr.length > 0) {
+        this.toastr.error("You already liked this idea!");
+        return;
+      }
+      idea.likes += 1;
+
+      this.addLike(like)
+        .then(() => {
+          this.toastr.success("You liked this idea");
+        })
+        .catch((err) => {
+          this.toastr.error("Something went wrong while liking idea!");
+        })
+      this.editIdea(idea, ideaId);
+    });
   }
 
   commentIdea(ideaId: string, content: string) {
