@@ -8,12 +8,19 @@ import { UserModule } from './user/user.module';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { IdeaModule } from './idea/idea.module';
-import { KinveyModule } from 'kinvey-angular-sdk';
-import { Keys } from 'src/secret';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { AuthService } from './core/services/auth.service';
 import { DataService } from './core/services/data.service';
+import { environment } from 'src/environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
+import { AngularFireAuthModule, AngularFireAuth } from "@angular/fire/auth";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+
 
 @NgModule({
   declarations: [
@@ -29,12 +36,19 @@ import { DataService } from './core/services/data.service';
     UserModule,
     IdeaModule,
     HomeModule,
-    KinveyModule.init({
-      appKey: Keys.AppId,
-      appSecret: Keys.AppSecret
-    })
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      autoDismiss: true,
+      maxOpened: 2,
+      timeOut: 1500,
+      easeTime: 200,
+      newestOnTop:false
+    }),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
   ],
-  providers: [AuthService,DataService],
+  providers: [AuthService, DataService, AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
