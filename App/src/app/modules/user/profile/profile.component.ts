@@ -57,8 +57,14 @@ export class ProfileComponent implements OnInit {
     this.IsEditing = !this.IsEditing;
   }
 
+  // TODO: UPLOAD PICTURE
   onSubmit() {
     this.loading = true;
+    this.authService.SetUserPhoto(this.f.picture.value)
+    .then(()=>{
+      this.IsEditing = false;
+      this.loading = false;
+    })
   }
 
   get f() {
