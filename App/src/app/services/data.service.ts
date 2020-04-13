@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -14,9 +14,9 @@ import { Comment } from '../components/shared/models/Comment';
   providedIn: 'root'
 })
 export class DataService {
-  IdeaCollection: any;
-  LikesCollection: any;
-  CommentsCollection: any;
+  IdeaCollection: CollectionReference;
+  LikesCollection: CollectionReference;
+  CommentsCollection: CollectionReference;
   collLen = 0;
   constructor(private firestore: AngularFirestore,
     public authService: AuthService,
@@ -46,11 +46,9 @@ export class DataService {
   }
 
   // TODO: REF
-  getUserIdeas$(creatorId: string): Observable<any> {
-    return this.IdeaCollection.find(1)
-      .pipe(map((data: []) => {
-        return data;
-      }));
+  getUserIdeas(creatorId: string) {
+    return this.IdeaCollection.where("creatorId","==",creatorId)
+    .get();
   }
 
   addIdea(title: string, description: string, imageUrl: string) {
