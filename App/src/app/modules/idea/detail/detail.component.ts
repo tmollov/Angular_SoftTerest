@@ -32,7 +32,7 @@ export class DetailComponent implements OnInit {
 
     this.toastr.info("Loading idea");
     this.commentform = this.fb.group({
-      newComment: ['']
+      newComment: ['',Validators.required]
     });
 
     this.dataService.LikesColl(this.route.snapshot.params.id);
@@ -71,6 +71,9 @@ export class DetailComponent implements OnInit {
     return this.authService.isLoggedIn;
   }
 
+  get f(){
+    return this.commentform.controls;
+  }
   deleteIdea() {
     this.dataService.removeIdeaById(this.route.snapshot.params.id);
   }
