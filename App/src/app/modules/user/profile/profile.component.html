@@ -12,12 +12,12 @@
         <section *ngIf="!this.isEntitiesLoaded">
             <p>Loading ideas...</p>
         </section>
-        <!-- <section id="ideas" *ngIf="this.ideasNames | async as ideas">
+        <section id="ideas" *ngIf="this.ideasNames as ideas">
             <p>Has {{ideas.length}} ideas =)</p>
             <ng-container *ngFor="let idea of ideas">
-                <a class="font-weight-bold link" href="/idea/detail/{{idea._id}}">{{idea.title}}</a>
+                <a class="font-weight-bold link" href="/idea/detail/{{idea.id}}">{{idea.data().title}}</a>
             </ng-container>
-        </section> -->
+        </section>
     </div>
 </main>
 
