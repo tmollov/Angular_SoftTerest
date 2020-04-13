@@ -11,21 +11,25 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~8.2.14",
+    "@angular/animations": "^8.2.14",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",
     "@angular/core": "~8.2.14",
+    "@angular/fire": "^6.0.0",
     "@angular/forms": "~8.2.14",
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "angularfire2": "^5.4.2",
     "bootstrap": "^4.4.1",
-    "handlebars": "^4.7.3",
+    "firebase": "^7.14.0",
+    "handlebars": "^4.7.6",
     "jquery": "^3.4.1",
-    "kinvey-angular-sdk": "^4.2.5",
+    "ngx-toastr": "^12.0.1",
     "rxjs": "^6.4.0",
     "sammy": "^0.7.6",
     "tslib": "^1.10.0",
+    "uuid": "^7.0.3",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
@@ -47,6 +51,11 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "@angular-devkit/architect": "~0.900",
+    "firebase-tools": "^8.0.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1"
   }
 }

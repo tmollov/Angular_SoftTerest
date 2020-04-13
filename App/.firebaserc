@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "softterest-d4837": {
+      "hosting": {
+        "App": [
+          "softterest-d4837"
+        ]
+      }
+    }
+  }
+}
