@@ -14,8 +14,7 @@ import { map } from 'rxjs/internal/operators/map';
   providedIn: 'root'
 })
 export class AuthService {
-  userData: User; // Save logged in user data
-  userInfo: any;
+  userData: User; 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -157,5 +156,15 @@ export class AuthService {
     .pipe(map((data)=>{
       return data[0].photoUrl;
     }));
+  }
+
+  SetUserPhoto(photoUrl) {
+    let newPhoto:UserInfo = {
+      photoUrl:photoUrl
+    };
+    this.toastr.info("Updating picture...")
+    return this.afs.collection<UserInfo>("userInfo").doc(this.GetUserId).set(newPhoto).then(()=>{
+      this.toastr.success("Picture updated!")
+    });
   }
 }
