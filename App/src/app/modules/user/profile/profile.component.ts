@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
-import { User } from 'src/app/components/shared/models/User';
 import { map } from 'rxjs/internal/operators/map';
 
 
@@ -18,20 +16,18 @@ export class ProfileComponent implements OnInit {
 
   isEntitiesLoaded = false;
   returnUrl: string;
-  //ideasNames: 
+  ideasNames;
   items;
   IsEditing = false;
   profilePicForm: FormGroup;
   loading = false;
-  usersRef: CollectionReference;
   photo: Observable<any>;
 
   constructor(public authService: AuthService,
     private dataService: DataService,
     private router: Router,
     private route: ActivatedRoute,
-    private rb: FormBuilder,
-    private firestore: AngularFirestore) {
+    private rb: FormBuilder) {
 
     this.profilePicForm = this.rb.group({
       picture: ["", Validators.required]
@@ -50,19 +46,11 @@ export class ProfileComponent implements OnInit {
         this.profilePicForm.controls.picture.setValue(data);
         return data;
       }));
-
-    let user = JSON.parse(localStorage.getItem('user'))
-    this.items = this.firestore.collection<User>('users').ref;
-    // this.items
-    //   .pipe(map((data) => {
-    //     this.photo = data[2].photoURL;
-    //     console.log(data);
-    //     return data;
-    //   }));
-    //this.ideasNames = this.dataService.getUserIdeas$(this.authService.activeUser._id)
-    //.pipe(finalize(()=>{
-    //  this.isEntitiesLoaded = true;
-    //}));
+      this.dataService.getUserIdeas(this.authService.GetUserId)
+      .then((data)=>{
+        this.ideasNames = data.docs;
+        this.isEntitiesLoaded = true;
+      });
   }
 
   toggleEdit() {
