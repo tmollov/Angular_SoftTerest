@@ -12,23 +12,23 @@
         <!--<li *ngIf="this.IsUserLogged" class="nav-item active">
             <a class="nav-link" routerLink="idea/detail">Detail</a>
           </li>-->
-        <li *ngIf="this.IsUserLogged" class="nav-item active">
+        <li *ngIf="authService.isLoggedIn" class="nav-item active">
           <a class="nav-link" routerLink="/">Dashboard</a>
         </li>
-        <li *ngIf="this.IsUserLogged" class="nav-item active">
+        <li *ngIf="authService.isLoggedIn" class="nav-item active">
           <a class="nav-link" routerLink="/idea/create">Create</a>
         </li>
-        <li *ngIf="this.IsUserLogged" class="nav-item active">
+        <li *ngIf="authService.isLoggedIn" class="nav-item active">
           <a class="nav-link" href="/profile">Profile</a>
         </li>
-        <li *ngIf="this.IsUserLogged" class="nav-item logoutItem">
+        <li *ngIf="authService.isLoggedIn" class="nav-item logoutItem">
           <a class="nav-link logoutLink" (click)="logout()">Logout</a>
           <div *ngIf="this.isLogingOut" class="loader"></div>
         </li>
-        <li *ngIf="!this.IsUserLogged" class="nav-item">
+        <li *ngIf="!authService.isLoggedIn" class="nav-item">
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
-        <li *ngIf="!this.IsUserLogged" class="nav-item">
+        <li *ngIf="!authService.isLoggedIn" class="nav-item">
           <a class="nav-link" routerLink="/register">Register</a>
         </li>
       </ul>

@@ -10,20 +10,17 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
 
   public isLogingOut = false;
-  constructor(private authService: AuthService,
+  constructor(public authService: AuthService,
     private router: Router) {
   }
 
   ngOnInit() {
   }
 
-  get IsUserLogged() {
-    return Boolean(this.authService.activeUser);
-  }
-
+  // TODO: REF
   logout() {
     this.isLogingOut = true;
-    this.authService.logout()
+    this.authService.SignOut()
     .then((data) => {
       console.log(data);
       this.isLogingOut = false;
