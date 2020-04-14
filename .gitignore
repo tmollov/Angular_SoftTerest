@@ -127,3 +127,5 @@ SOURCE/styles/login.css
 App/src/secret.ts
 01. SoftTerest_Problem Description.docx
 ~$. SoftTerest_Problem Description.docx
+*.json
+App/src/environments/environment.ts

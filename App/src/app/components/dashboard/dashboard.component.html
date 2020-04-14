@@ -1,0 +1,18 @@
+<div *ngIf="isEntitiesLoaded" id="dashboard-holder">
+  <ng-container *ngFor="let el of this.enities">
+    <div class="card overflow-hidden current-card details">
+      <div class="card-body">
+        <p class="card-text">{{el.data().title}}</p>
+      </div>
+      <img class="card-image" src="{{el.data().imageURL}}" alt="Card image cap">
+      <a class="btn" routerLink="/idea/detail/{{el.id}}">Details</a>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isEntitiesLoaded">
+    <div>
+      <h1>No ideas yet! Be the first one :)</h1>
+    </div>
+  </ng-container>
+
+</div>
