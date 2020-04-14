@@ -5,7 +5,7 @@ import { DetailComponent } from './detail/detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IdeaRoutingModule } from './idea-routing.module';
 import { EditComponent } from './edit/edit.component';
-import { CoreModule } from 'src/app/components/core/core.module';
+import { CoreModule } from '../../modules/core/core.module';
 
 
 

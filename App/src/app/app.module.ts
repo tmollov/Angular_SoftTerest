@@ -14,11 +14,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { AngularFireAuthModule, AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
-import { CoreModule } from './components/core/core.module';
 import { UserModule } from './modules/user/user.module';
 import { IdeaModule } from './modules/idea/idea.module';
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
+import { CoreModule } from './modules/core/core.module';
 
 
 @NgModule({
