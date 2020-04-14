@@ -33,16 +33,16 @@ export class DataService {
   }
 
   LikesColl(ideaId: string) {
-    this.firestore.collection("likes")
+    return this.firestore.collection("likes")
       .ref
       .where("IdeaId", "==", ideaId)
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-        });
-      });
+      .get();
+      // .then(function (querySnapshot) {
+      //   querySnapshot.forEach(function (doc) {
+      //     // doc.data() is never undefined for query doc snapshots
+      //     console.log(doc.id, " => ", doc.data());
+      //   });
+      // });
   }
 
   getUserIdeas(creatorId: string) {
@@ -103,7 +103,6 @@ export class DataService {
 
     this.IsUserLikedIdeaById(ideaId)
     .then((data) => {
-      debugger;
       let arr = data.docs.filter(x => x.data().UserId == this.authService.GetUserId);
       if (arr.length > 0) {
         this.toastr.error("You already liked this idea!");
