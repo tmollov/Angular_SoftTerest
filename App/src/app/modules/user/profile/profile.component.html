@@ -1,6 +1,6 @@
 <main *ngIf="!IsEditing">
     <div id="imageDiv">
-        <img src="{{photo | async}}" alt="ProfilePicture">
+        <img src="{{photo}}" alt="ProfilePicture">
         <button id="editButton" (click)="toggleEdit()">Update profile image</button>
     </div>
 
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div id="btnDiv">
-            <button id="editButton" (click)="onSubmit()">
+            <button id="editButton">
                 <ng-container *ngIf="loading">
                     <app-loader></app-loader>
                 </ng-container>
@@ -46,6 +46,6 @@
     <hr>
     <div id="imagePreview">
         <p>Preview:</p>
-        <img src="{{f.picture.value}}" alt="Picture">
+        <img [src]="f.picture.value" alt="Picture">
     </div>
 </main>

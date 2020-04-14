@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
 import { map } from 'rxjs/internal/operators/map';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,13 +22,14 @@ export class ProfileComponent implements OnInit {
   IsEditing = false;
   profilePicForm: FormGroup;
   loading = false;
-  photo: Observable<any>;
+  photo: Observable<string>;
 
   constructor(public authService: AuthService,
     private dataService: DataService,
     private router: Router,
     private route: ActivatedRoute,
-    private rb: FormBuilder) {
+    private rb: FormBuilder,
+    private toastr: ToastrService) {
 
     this.profilePicForm = this.rb.group({
       picture: ["", Validators.required]
@@ -41,13 +43,20 @@ export class ProfileComponent implements OnInit {
     if (!this.authService.isLoggedIn) {
       this.router.navigate([this.returnUrl]);
     }
-    this.photo = this.authService.GetUserPhoto
-      .pipe(map((data) => {
-        this.profilePicForm.controls.picture.setValue(data);
-        return data;
-      }));
-      this.dataService.getUserIdeas(this.authService.GetUserId)
-      .then((data)=>{
+    this.authService.GetUserPhoto
+      .get()
+      .subscribe((data) => {
+        if (data.data() != undefined) {
+          this.photo = data.data().photoUrl;
+          this.profilePicForm.controls.picture.setValue(data.data().photoUrl);
+        } else {
+          this.profilePicForm.controls.picture.setValue("");
+        }
+
+      });
+
+    this.dataService.getUserIdeas(this.authService.GetUserId)
+      .then((data) => {
         this.ideasNames = data.docs;
         this.isEntitiesLoaded = true;
       });
@@ -59,11 +68,13 @@ export class ProfileComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
+    
     this.authService.SetUserPhoto(this.f.picture.value)
-    .then(()=>{
-      this.IsEditing = false;
-      this.loading = false;
-    })
+      .then(() => {
+        this.photo = this.f.picture.value;
+        this.IsEditing = false;
+        this.loading = false;
+      })
   }
 
   get f() {
