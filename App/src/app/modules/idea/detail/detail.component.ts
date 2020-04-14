@@ -16,7 +16,7 @@ export class DetailComponent implements OnInit {
 
   commentform: FormGroup;
   comments$: any[];
-  ideaModel: Idea;
+  ideaModel: any;
   ideaDescriptionList: any[];
   editLink: string;
   ideaLikes = 0;
