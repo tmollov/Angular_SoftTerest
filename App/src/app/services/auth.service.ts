@@ -41,6 +41,9 @@ export class AuthService {
       .then((result) => {
         this.toastr.success("Login Successful!");
         this.userData = result.user;
+        if (returnUrl == "/") {
+          returnUrl = "/dashboard";
+        }
         this.ngZone.run(() => {
           this.router.navigateByUrl(returnUrl);
         });
