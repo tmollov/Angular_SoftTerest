@@ -17,17 +17,8 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
   }
 
-  // TODO: REF
   logout() {
     this.isLogingOut = true;
-    this.authService.SignOut()
-    .then((data) => {
-      console.log(data);
-      this.isLogingOut = false;
-      this.router.navigate(['/']);
-    })
-    .catch((err)=>{
-      console.log(err);
-    });
+    this.authService.SignOut();
   }
 }
