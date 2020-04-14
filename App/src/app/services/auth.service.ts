@@ -7,8 +7,6 @@ import { auth, firestore } from 'firebase/app';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../components/shared/models/User';
 import { UserInfo } from '../components/shared/models/UserInfo';
-import { of } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +59,10 @@ export class AuthService {
         //this.SendVerificationMail();
         this.toastr.success("Sign up successful!");
         this.SetUserData(result.user);
-        this.router.navigate(["dashboard"])
+        this.afs.collection<UserInfo>("userInfo").doc(result.user.uid)
+        .set({photoURL:""}).then(()=>{
+          this.router.navigate(["dashboard"])
+        });
       }).catch((error) => {
         this.toastr.error(error.message);
       })
@@ -151,19 +152,19 @@ export class AuthService {
     return res;
   }
 
-  get GetUserPhoto() {
-    return this.afs.collection<UserInfo>("userInfo").valueChanges()
-    .pipe(map((data)=>{
-      return data[0].photoUrl;
-    }));
+  get GetUserPhoto() {    
+    return this.afs.collection<UserInfo>("userInfo").doc(this.GetUserId);
   }
 
   SetUserPhoto(photoUrl) {
     let newPhoto:UserInfo = {
       photoUrl:photoUrl
     };
+    
     this.toastr.info("Updating picture...")
-    return this.afs.collection<UserInfo>("userInfo").doc(this.GetUserId).set(newPhoto).then(()=>{
+    return this.afs.collection<UserInfo>("userInfo").doc(this.GetUserId)
+    .set(newPhoto)
+    .then(()=>{
       this.toastr.success("Picture updated!")
     });
   }
