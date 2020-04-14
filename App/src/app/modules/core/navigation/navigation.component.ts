@@ -19,6 +19,9 @@ export class NavigationComponent implements OnInit {
 
   logout() {
     this.isLogingOut = true;
-    this.authService.SignOut();
+    this.authService.SignOut()
+    .then(()=>{
+      this.isLogingOut = false;
+    });
   }
 }
